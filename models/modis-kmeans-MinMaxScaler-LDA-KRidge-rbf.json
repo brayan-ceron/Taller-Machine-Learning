@@ -1,0 +1,68 @@
+{
+  "id": "modis-kmeans-MinMaxScaler-LDA-KRidge-rbf",
+  "dataset": "modis",
+  "rank": 2,
+  "discretizador": "kmeans",
+  "escalador": "MinMaxScaler",
+  "reductor": "LDA",
+  "modelo": "KRidge[rbf]",
+  "n_clases": 3,
+  "rangos_irradiancia": {
+    "0": [
+      188.5,
+      208.0
+    ],
+    "1": [
+      208.9,
+      227.3
+    ],
+    "2": [
+      227.8,
+      248.1
+    ]
+  },
+  "cv_folds": 5,
+  "metricas": {
+    "accuracy": 0.8898876404494382,
+    "f1_macro": 0.7843450963476211,
+    "mcc": 0.8003964384878437,
+    "auc": 0.9573420633387821
+  },
+  "metricas_std": {
+    "accuracy": 0.03437541245118731,
+    "f1_macro": 0.061317145170541154,
+    "mcc": 0.061202600043136504,
+    "auc": 0.015381559748876651
+  },
+  "matriz_confusion": [
+    [
+      260,
+      9,
+      0
+    ],
+    [
+      8,
+      26,
+      23
+    ],
+    [
+      0,
+      9,
+      110
+    ]
+  ],
+  "feature_cols": [
+    "band1",
+    "band2",
+    "band3",
+    "band4",
+    "band5",
+    "band6",
+    "band7"
+  ],
+  "hiperparametros": {
+    "gamma": 0.1,
+    "degree": 2,
+    "coef0": 0.5
+  }
+}

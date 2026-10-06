@@ -1,0 +1,68 @@
+{
+  "id": "landsat-kmeans-Normalizer-LDA-KRidge-rbf",
+  "dataset": "landsat",
+  "rank": 2,
+  "discretizador": "kmeans",
+  "escalador": "Normalizer",
+  "reductor": "LDA",
+  "modelo": "KRidge[rbf]",
+  "n_clases": 3,
+  "rangos_irradiancia": {
+    "0": [
+      188.5,
+      208.0
+    ],
+    "1": [
+      208.9,
+      227.3
+    ],
+    "2": [
+      227.8,
+      247.3
+    ]
+  },
+  "cv_folds": 5,
+  "metricas": {
+    "accuracy": 0.8663993584603047,
+    "f1_macro": 0.7376818093818154,
+    "mcc": 0.7552771525155916,
+    "auc": 0.9514476773000361
+  },
+  "metricas_std": {
+    "accuracy": 0.03203525754289372,
+    "f1_macro": 0.04571284630264897,
+    "mcc": 0.05451764260430051,
+    "auc": 0.01742033310676366
+  },
+  "matriz_confusion": [
+    [
+      257,
+      7,
+      1
+    ],
+    [
+      11,
+      21,
+      24
+    ],
+    [
+      2,
+      13,
+      98
+    ]
+  ],
+  "feature_cols": [
+    "band1",
+    "band2",
+    "band3",
+    "band4",
+    "band5",
+    "band6",
+    "band7"
+  ],
+  "hiperparametros": {
+    "gamma": 0.1,
+    "degree": 2,
+    "coef0": 0.5
+  }
+}

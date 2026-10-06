@@ -1,0 +1,68 @@
+{
+  "id": "landsat-kmeans-Normalizer-LDA-KRidge-hyperbolic",
+  "dataset": "landsat",
+  "rank": 3,
+  "discretizador": "kmeans",
+  "escalador": "Normalizer",
+  "reductor": "LDA",
+  "modelo": "KRidge[hyperbolic]",
+  "n_clases": 3,
+  "rangos_irradiancia": {
+    "0": [
+      188.5,
+      208.0
+    ],
+    "1": [
+      208.9,
+      227.3
+    ],
+    "2": [
+      227.8,
+      247.3
+    ]
+  },
+  "cv_folds": 5,
+  "metricas": {
+    "accuracy": 0.8687249398556535,
+    "f1_macro": 0.7289294159364582,
+    "mcc": 0.7610662450736653,
+    "auc": 0.9504394185793954
+  },
+  "metricas_std": {
+    "accuracy": 0.03437009791806201,
+    "f1_macro": 0.05291547363957467,
+    "mcc": 0.05972660463808839,
+    "auc": 0.017785254870574353
+  },
+  "matriz_confusion": [
+    [
+      257,
+      7,
+      1
+    ],
+    [
+      12,
+      17,
+      27
+    ],
+    [
+      2,
+      8,
+      103
+    ]
+  ],
+  "feature_cols": [
+    "band1",
+    "band2",
+    "band3",
+    "band4",
+    "band5",
+    "band6",
+    "band7"
+  ],
+  "hiperparametros": {
+    "gamma": 0.1,
+    "degree": 2,
+    "coef0": 0.5
+  }
+}

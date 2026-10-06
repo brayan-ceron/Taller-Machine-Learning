@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pipelines ML · Irradiancia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark app-nav">
+  <div class="container-xl">
+    <span class="navbar-brand fw-semibold"><i class="bi bi-sun me-2"></i>Pipelines ML · Irradiancia</span>
+    <ul class="nav nav-pills ms-auto" role="tablist">
+      <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-comparar" type="button">
+        <i class="bi bi-columns-gap me-1"></i>Comparar</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-modelos" type="button">
+        <i class="bi bi-database me-1"></i>Modelos</button></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container-xl py-4">
+<div class="tab-content">
+
+  <!-- ===================== COMPARAR ===================== -->
+  <section class="tab-pane fade show active" id="tab-comparar">
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="row g-3 align-items-end">
+          <div class="col-lg-4">
+            <label class="form-label fw-semibold"><span class="badge tag-a">A</span> Modelo A</label>
+            <select id="selA" class="form-select"></select>
+          </div>
+          <div class="col-lg-4">
+            <label class="form-label fw-semibold"><span class="badge tag-b">B</span> Modelo B</label>
+            <select id="selB" class="form-select"></select>
+          </div>
+          <div class="col-lg-4">
+            <label class="form-label fw-semibold">Colorear mapa por</label>
+            <div class="btn-group w-100" role="group" id="modeGroup">
+              <input type="radio" class="btn-check" name="mode" id="m-pred" value="pred" checked>
+              <label class="btn btn-outline-primary" for="m-pred">Predicha</label>
+              <input type="radio" class="btn-check" name="mode" id="m-real" value="real">
+              <label class="btn btn-outline-primary" for="m-real">Real</label>
+              <input type="radio" class="btn-check" name="mode" id="m-error" value="error">
+              <label class="btn btn-outline-primary" for="m-error">Aciertos</label>
+            </div>
+          </div>
+        </div>
+        <div id="legend" class="legend mt-3"></div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-header d-flex align-items-center gap-2">
+            <span class="badge tag-a">A</span><span id="titleA" class="map-title text-truncate"></span>
+          </div>
+          <div class="card-body p-2"><div class="map-wrap"><canvas id="mapA"></canvas></div></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-header d-flex align-items-center gap-2">
+            <span class="badge tag-b">B</span><span id="titleB" class="map-title text-truncate"></span>
+          </div>
+          <div class="card-body p-2"><div class="map-wrap"><canvas id="mapB"></canvas></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-lg-5">
+        <div class="card shadow-sm h-100">
+          <div class="card-header"><i class="bi bi-geo-alt me-1"></i>Clasificar una posición</div>
+          <div class="card-body">
+            <p class="text-body-secondary small mb-3">
+              Haz clic sobre cualquiera de los mapas o escribe unas coordenadas y pulsa <em>Consultar</em>.
+            </p>
+            <form id="formConsulta" class="row g-2 mb-3" autocomplete="off">
+              <div class="col-6">
+                <div class="form-floating">
+                  <input type="number" step="any" class="form-control" id="inLat" placeholder="latitud" required>
+                  <label for="inLat">Latitud (y)</label>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-floating">
+                  <input type="number" step="any" class="form-control" id="inLon" placeholder="longitud" required>
+                  <label for="inLon">Longitud (x)</label>
+                </div>
+              </div>
+              <div class="col-12 d-grid">
+                <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Consultar</button>
+              </div>
+            </form>
+            <div id="resultado" class="text-body-secondary small">Aún no hay ninguna posición seleccionada.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="card shadow-sm h-100">
+          <div class="card-header"><i class="bi bi-bar-chart me-1"></i>Métricas de calidad (validación cruzada)</div>
+          <div class="card-body p-0"><div id="metricas" class="table-responsive"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-6"><div class="card shadow-sm h-100">
+        <div class="card-header">Matriz de confusión · <span class="badge tag-a">A</span></div>
+        <div class="card-body" id="cmA"></div></div></div>
+      <div class="col-lg-6"><div class="card shadow-sm h-100">
+        <div class="card-header">Matriz de confusión · <span class="badge tag-b">B</span></div>
+        <div class="card-body" id="cmB"></div></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== MODELOS ===================== -->
+  <section class="tab-pane fade" id="tab-modelos">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-header"><i class="bi bi-cloud-arrow-up me-1"></i>Almacenar un modelo</div>
+          <div class="card-body">
+            <form id="formUpload">
+              <div class="mb-3">
+                <label class="form-label">Metadatos <code>.json</code> <span class="text-danger">*</span></label>
+                <input class="form-control" type="file" name="meta" accept=".json" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Predicciones <code>_predicciones.csv</code> <span class="text-danger">*</span></label>
+                <input class="form-control" type="file" name="predicciones" accept=".csv" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Pipeline <code>.joblib</code> <span class="text-body-secondary">(opcional)</span></label>
+                <input class="form-control" type="file" name="joblib" accept=".joblib">
+              </div>
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="overwrite" value="1" id="chkOver">
+                <label class="form-check-label" for="chkOver">Sobrescribir si ya existe</label>
+              </div>
+              <button class="btn btn-primary w-100" type="submit" id="btnUpload">
+                <i class="bi bi-save me-1"></i>Guardar modelo</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between">
+            <span><i class="bi bi-collection me-1"></i>Modelos almacenados</span>
+            <span class="badge text-bg-secondary" id="countModels">0</span>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead><tr>
+                <th>Dataset</th><th>Pipeline</th><th class="text-end">Acc</th>
+                <th class="text-end">F1</th><th class="text-end">MCC</th><th class="text-end">AUC</th><th></th>
+              </tr></thead>
+              <tbody id="tbodyModels"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toasts"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

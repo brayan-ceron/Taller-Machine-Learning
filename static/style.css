@@ -1,0 +1,23 @@
+:root { --a: #0d6efd; --b: #d63384; }
+body { background: #f3f5f9; }
+.app-nav { background: linear-gradient(120deg, #1b2a49, #2f4a86); }
+.app-nav .nav-link { color: rgba(255,255,255,.75); }
+.app-nav .nav-link.active { background: rgba(255,255,255,.18); color: #fff; }
+.card { border: 0; border-radius: .9rem; }
+.card-header { background: transparent; font-weight: 600; border-bottom: 1px solid #eef0f4; }
+.tag-a { background: var(--a); }
+.tag-b { background: var(--b); }
+.map-title { font-size: .9rem; font-weight: 500; }
+.map-wrap { width: 100%; }
+.map-wrap canvas { display: block; border-radius: .6rem; cursor: crosshair; background: #fafbfd; }
+.legend { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; font-size: .88rem; }
+.legend .sw { display: inline-block; width: .85rem; height: .85rem; border-radius: 50%; margin-right: .35rem; vertical-align: -1px; }
+.metric-bar { height: 8px; background: #e9ecef; border-radius: 4px; overflow: hidden; min-width: 90px; }
+.metric-bar > div { height: 100%; }
+.win { font-weight: 700; }
+.cm { border-collapse: separate; border-spacing: 3px; margin: 0 auto; }
+.cm td, .cm th { text-align: center; padding: .5rem .8rem; border-radius: .4rem; font-size: .85rem; }
+.cm th { color: #6c757d; font-weight: 500; }
+.res-card { border: 1px solid #e6e9f0; border-radius: .7rem; padding: .75rem .9rem; margin-bottom: .6rem; }
+.res-card .cls { font-size: 1.15rem; font-weight: 700; }
+.pill { color: #fff; padding: .15rem .65rem; border-radius: 1rem; }

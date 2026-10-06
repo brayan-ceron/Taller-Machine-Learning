@@ -1,0 +1,68 @@
+{
+  "id": "modis-kmeans-Normalizer-LDA-KSVC-rbf",
+  "dataset": "modis",
+  "rank": 3,
+  "discretizador": "kmeans",
+  "escalador": "Normalizer",
+  "reductor": "LDA",
+  "modelo": "KSVC[rbf]",
+  "n_clases": 3,
+  "rangos_irradiancia": {
+    "0": [
+      188.5,
+      208.0
+    ],
+    "1": [
+      208.9,
+      227.3
+    ],
+    "2": [
+      227.8,
+      248.1
+    ]
+  },
+  "cv_folds": 5,
+  "metricas": {
+    "accuracy": 0.8831460674157304,
+    "f1_macro": 0.7520579324837111,
+    "mcc": 0.789305833495846,
+    "auc": 0.9484604622026007
+  },
+  "metricas_std": {
+    "accuracy": 0.02895303084657333,
+    "f1_macro": 0.06735887642277792,
+    "mcc": 0.052758777211069266,
+    "auc": 0.0166863427581474
+  },
+  "matriz_confusion": [
+    [
+      262,
+      7,
+      0
+    ],
+    [
+      6,
+      21,
+      30
+    ],
+    [
+      0,
+      9,
+      110
+    ]
+  ],
+  "feature_cols": [
+    "band1",
+    "band2",
+    "band3",
+    "band4",
+    "band5",
+    "band6",
+    "band7"
+  ],
+  "hiperparametros": {
+    "gamma": 0.1,
+    "degree": 2,
+    "coef0": 0.5
+  }
+}
